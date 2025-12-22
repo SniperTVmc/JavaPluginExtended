@@ -1,9 +1,9 @@
 package fr.snipertvmc.javapluginextended.universal.infrastructure.models.files;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
+import dev.dejvokep.boostedyaml.YamlDocument;
 
 import java.io.File;
+import java.io.IOException;
 
 public class JPEYamlFile extends JPEFile {
 
@@ -11,22 +11,22 @@ public class JPEYamlFile extends JPEFile {
 	// -------------------------------------------------- //
 
 
-	private YamlConfiguration yamlConfiguration;
+	private YamlDocument yamlDocument;
 
 
 	// -------------------------------------------------- //
 
 
-	public JPEYamlFile(File file, boolean isResourceFile) {
-		super(file, isResourceFile);
+	public JPEYamlFile(File file) {
+		super(file);
 	}
 
-	public JPEYamlFile(File file, int fileVersion, boolean isResourceFile) {
-		super(file, fileVersion, isResourceFile);
+	public JPEYamlFile(File file, int fileVersion) {
+		super(file, fileVersion);
 	}
 
-	public JPEYamlFile(File file, int fileVersion, String fileVersionKeyPath, boolean isResourceFile) {
-		super(file, fileVersion, fileVersionKeyPath, isResourceFile);
+	public JPEYamlFile(File file, int fileVersion, String fileVersionKeyPath) {
+		super(file, fileVersion, fileVersionKeyPath);
 	}
 
 
@@ -34,20 +34,26 @@ public class JPEYamlFile extends JPEFile {
 
 
 	public void load() {
-		this.loadFile();
-
-		this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
-		this.realFileVersion = this.yamlConfiguration.getInt(this.fileVersionKeyPath, 0);
-		this.isLoaded = true;
+		super.loadFile();
+		this.loadYamContent();
 	}
 
 
-	public void loadAsResource(JavaPlugin javaPlugin) {
-		this.loadFileAsResource(javaPlugin);
+	public void loadAsResource(String resourcePath, boolean replace) {
+		super.loadResourceFile(resourcePath, replace);
+		this.loadYamContent();
+	}
 
-		this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
-		this.realFileVersion = this.yamlConfiguration.getInt(this.fileVersionKeyPath, 0);
-		this.isLoaded = true;
+
+	public void loadYamContent() {
+		try {
+			this.yamlDocument = YamlDocument.create(this.file);
+			this.realFileVersion = this.yamlDocument.getInt(this.fileVersionKeyPath, 0);
+			this.isLoaded = true;
+
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 
@@ -55,14 +61,14 @@ public class JPEYamlFile extends JPEFile {
 
 
 	public Object get(String path) {
-		return this.yamlConfiguration.get(path);
+		return this.yamlDocument.get(path);
 	}
 	public Object get(String path, Object def) {
-		return this.yamlConfiguration.get(path, def);
+		return this.yamlDocument.get(path, def);
 	}
 
-	public YamlConfiguration getYamlConfiguration() {
-		return this.yamlConfiguration;
+	public YamlDocument getYamlDocument() {
+		return this.yamlDocument;
 	}
 
 

@@ -1,6 +1,6 @@
 package fr.snipertvmc.javapluginextended.universal.infrastructure.models.files;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import fr.snipertvmc.javapluginextended.universal.utilities.FileUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -13,7 +13,6 @@ public class JPEFile {
 
 
 	protected boolean isLoaded = false;
-	protected final boolean isResourceFile;
 
 	protected int fileVersion = 0;
 	protected String fileVersionKeyPath = "file-version";
@@ -25,24 +24,21 @@ public class JPEFile {
 	// -------------------------------------------------- //
 
 
-	public JPEFile(File file, boolean isResourceFile) {
+	public JPEFile(File file) {
 		this.file = file;
-		this.isResourceFile = isResourceFile;
 	}
 
 
-	public JPEFile(File file, int fileVersion, boolean isResourceFile) {
+	public JPEFile(File file, int fileVersion) {
 		this.file = file;
 		this.fileVersion = fileVersion;
-		this.isResourceFile = isResourceFile;
 	}
 
 
-	public JPEFile(File file, int fileVersion, String fileVersionKeyPath, boolean isResourceFile) {
+	public JPEFile(File file, int fileVersion, String fileVersionKeyPath) {
 		this.file = file;
 		this.fileVersion = fileVersion;
 		this.fileVersionKeyPath = fileVersionKeyPath;
-		this.isResourceFile = isResourceFile;
 	}
 
 
@@ -50,27 +46,14 @@ public class JPEFile {
 
 
 	protected void loadFile() {
-
-		if (this.isResourceFile) {
-			throw new IllegalStateException("This file is marked as a resource file. Use loadAsResource() instead.");
-		}
-
 		if (!this.file.exists()) {
 			this.file.getParentFile().mkdirs();
 		}
 	}
 
 
-	protected void loadFileAsResource(JavaPlugin javaPlugin) {
-
-		if (!this.isResourceFile) {
-			throw new IllegalStateException("This file is not marked as a resource file. Use load() instead.");
-		}
-
-		if (!this.file.exists()) {
-			this.file.getParentFile().mkdirs();
-			javaPlugin.saveResource(this.file.getName(), false);
-		}
+	protected void loadResourceFile(String resourcePath, boolean replace) {
+		FileUtils.loadResourceFile(this.file, resourcePath, replace);
 	}
 
 

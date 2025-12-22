@@ -3,7 +3,6 @@ package fr.snipertvmc.javapluginextended.universal.infrastructure.models.files;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,16 +20,16 @@ public class JPEJsonFile extends JPEFile {
 	// -------------------------------------------------- //
 
 
-	public JPEJsonFile(File file, boolean isResourceFile) {
-		super(file, isResourceFile);
+	public JPEJsonFile(File file) {
+		super(file);
 	}
 
-	public JPEJsonFile(File file, int fileVersion, boolean isResourceFile) {
-		super(file, fileVersion, isResourceFile);
+	public JPEJsonFile(File file, int fileVersion) {
+		super(file, fileVersion);
 	}
 
-	public JPEJsonFile(File file, int fileVersion, String fileVersionKeyPath, boolean isResourceFile) {
-		super(file, fileVersion, fileVersionKeyPath, isResourceFile);
+	public JPEJsonFile(File file, int fileVersion, String fileVersionKeyPath) {
+		super(file, fileVersion, fileVersionKeyPath);
 	}
 
 
@@ -38,13 +37,13 @@ public class JPEJsonFile extends JPEFile {
 
 
 	public void load() {
-		this.loadFile();
+		super.loadFile();
 		this.loadJsonContent();
 	}
 
 
-	public void loadAsResource(JavaPlugin javaPlugin) {
-		this.loadFileAsResource(javaPlugin);
+	public void loadAsResource(String resourcePath, boolean replace) {
+		super.loadResourceFile(resourcePath, replace);
 		this.loadJsonContent();
 	}
 
