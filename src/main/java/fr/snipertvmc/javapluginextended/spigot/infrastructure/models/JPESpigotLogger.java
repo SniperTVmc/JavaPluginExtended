@@ -1,9 +1,9 @@
-package fr.snipertvmc.javapluginextended.bukkit.infrastructure.models;
+package fr.snipertvmc.javapluginextended.spigot.infrastructure.models;
 
 import fr.snipertvmc.javapluginextended.universal.infrastructure.models.JPELogger;
 import org.bukkit.Bukkit;
 
-public class JPEBukkitLogger implements JPELogger {
+public class JPESpigotLogger implements JPELogger {
 
 
 	// -------------------------------------------------- //

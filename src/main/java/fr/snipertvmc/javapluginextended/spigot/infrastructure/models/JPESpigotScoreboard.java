@@ -1,12 +1,12 @@
-package fr.snipertvmc.javapluginextended.bukkit.infrastructure.models.scoreboard;
+package fr.snipertvmc.javapluginextended.spigot.infrastructure.models;
 
-import fr.snipertvmc.javapluginextended.bukkit.libraries.fastinv.FastBoard;
+import fr.snipertvmc.javapluginextended.universal.libraries.fastinv.FastBoard;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JPEScoreboard {
+public class JPESpigotScoreboard {
 
 
 	// -------------------------------------------------- //
@@ -22,7 +22,7 @@ public class JPEScoreboard {
 	// -------------------------------------------------- //
 
 
-	public JPEScoreboard(Player player) {
+	public JPESpigotScoreboard(Player player) {
 		this.owner = player;
 		this.fastBoard = new FastBoard(this.owner);
 	}
@@ -31,26 +31,26 @@ public class JPEScoreboard {
 	// -------------------------------------------------- //
 
 
-	public JPEScoreboard setTitle(String title) {
+	public JPESpigotScoreboard setTitle(String title) {
 		this.title = title;
 		return this;
 	}
 
 
-	public JPEScoreboard addLine(String line) {
+	public JPESpigotScoreboard addLine(String line) {
 		this.lines.add(line);
 		return this;
 	}
 
 
-	public JPEScoreboard setLines(List<String> lines) {
+	public JPESpigotScoreboard setLines(List<String> lines) {
 		this.lines.clear();
 		this.lines.addAll(lines);
 		return this;
 	}
 
 
-	public JPEScoreboard show() {
+	public JPESpigotScoreboard show() {
 		if (this.fastBoard == null) {
 			this.fastBoard = new FastBoard(this.owner);
 		}
@@ -58,7 +58,7 @@ public class JPEScoreboard {
 	}
 
 
-	public JPEScoreboard hide() {
+	public JPESpigotScoreboard hide() {
 		if (this.fastBoard != null) {
 			this.fastBoard.delete();
 			this.fastBoard = null;

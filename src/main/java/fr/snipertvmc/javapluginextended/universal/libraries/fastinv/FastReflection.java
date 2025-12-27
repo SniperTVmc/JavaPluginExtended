@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.snipertvmc.javapluginextended.bukkit.libraries.fastinv;
+package fr.snipertvmc.javapluginextended.universal.libraries.fastinv;
 
 import org.bukkit.Bukkit;
 
